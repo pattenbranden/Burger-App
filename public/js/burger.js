@@ -34,8 +34,8 @@ $(function() {
         location.reload();
       });
     });
-  
-    $(".trashburger").on("click", function(event) {
+    // retargeted event listener to document, id trashburger
+    $(document).on("click", ".trashburger", function(event) {
       event.preventDefault();
   
       var id = $(this).data("id");
