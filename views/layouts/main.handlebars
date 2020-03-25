@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Diner</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+</head>
+<body>
+    
+    {{{ body }}}
+<script>
+    $(function() {
+    $(".create-form").on("submit", function(event) {
+      event.preventDefault();
+  
+      var newBurger = {
+        burger_name: $("#newburger")
+          .val()
+          .trim(),
+        devoured: 0
+      };
+  
+      $.ajax("/api/burgers", {
+        type: "POST",
+        data: newBurger
+      }).then(function() {
+        console.log("Added new burger");
+        location.reload();
+      });
+    });
+  
+    $(".eatburger").on("click", function(event) {
+      event.preventDefault();
+  
+      var id = $(this).data("id");
+      var devouredState = {
+        devoured: 1
+      };
+  
+      $.ajax("/api/burgers/" + id, {
+        type: "PUT",
+        data: devouredState
+      }).then(function() {
+        console.log("Burger devoured");
+        location.reload();
+      });
+    });
+  
+    $("#burger-list").on("click", "#trashbutton", function(event) {
+      event.preventDefault();
+  
+      var id = $(this).data("id");
+  
+      // Send the DELETE request.
+      $.ajax({
+        type: "DELETE",
+        url: "/api/burgers/" + id
+      }).then(location.reload()
+      console.log("trashed " + id));
+    });
+  });
+</script>
+</body>
+</html>
