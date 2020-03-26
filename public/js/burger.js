@@ -35,15 +35,17 @@ $(function() {
       });
     });
     // retargeted event listener to document, id trashburger
-    $(document).on("click", ".trashburger", function(event) {
+    $(document).on("click", "#trashbutton", function(event) {
+      console.log("trash button pressed")
       event.preventDefault();
   
       var id = $(this).data("id");
+      console.log(id)
   
       // Send the DELETE request.
       $.ajax({
         type: "DELETE",
         url: "/api/burgers/" + id
-      }).then(location.reload());
+      }).then( location.reload());
     });
   });
